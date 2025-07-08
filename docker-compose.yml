@@ -1,0 +1,29 @@
+version: '3.8'
+services:
+  mongo:
+    image: mongo:6.0
+    container_name: mongo
+    restart: unless-stopped
+    ports:
+      - "27017:27017"
+    environment:
+      MONGO_INITDB_DATABASE: VehicleRentalDb
+    volumes:
+      - mongo_data:/data/db
+
+  microservice:
+    build:
+      context: .
+      dockerfile: src/GtMotive.Estimate.Microservice.Host/Dockerfile
+    container_name: vehicle-microservice
+    depends_on:
+      - mongo
+    environment:
+      - ASPNETCORE_ENVIRONMENT=Development
+      - MongoDb__ConnectionString=mongodb://mongo:27017
+      - MongoDb__MongoDbDatabaseName=VehicleRentalDb
+    ports:
+      - "5001:8080"
+
+volumes:
+  mongo_data: 

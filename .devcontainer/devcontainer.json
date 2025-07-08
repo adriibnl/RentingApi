@@ -1,0 +1,17 @@
+{
+  "name": "Hexagonal Microservice Dev",
+  "dockerComposeFile": [
+    "docker-compose.yml"
+  ],
+  "service": "devcontainer",
+  "workspaceFolder": "/workspace",
+  "settings": {
+    "terminal.integrated.shell.linux": "/bin/bash"
+  },
+  "extensions": [
+    "ms-dotnettools.csharp",
+    "ms-vscode.js-debug"
+  ],
+  "forwardPorts": [5001, 27017],
+  "postCreateCommand": "dotnet restore src/microservice.sln"
+} 
